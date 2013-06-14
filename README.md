@@ -4,17 +4,20 @@ libhosts - A simple LD_PRELOAD library
 <pre>
 $ ./resolveip a.b.c.d
 ./resolveip: Unable to find hostid for 'a.b.c.d': host not found
+$
 </pre>
 
 <pre>
 $ make
 gcc -Wall -Wl,-soname,libhosts -shared -ldl -fPIC -o libhosts.o libhosts.c
 $ echo "8.8.8.8 a.b.c.d" >> ~/.libhosts/hosts
+$
 </pre>
 
 <pre>
 $ LIBHOSTS_FILE=~/.libhosts/hosts LD_PRELOAD=./libhosts.o ./resolveip a.b.c.d
 IP address of a.b.c.d is 8.8.8.8
+$
 </pre>
 
 <pre>
