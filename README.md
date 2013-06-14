@@ -9,7 +9,7 @@ libhosts - A simple LD\_PRELOAD library
 <pre>
 [maycon@darkside libhosts]$ make
 gcc -Wall -Wl,-soname,libhosts -shared -ldl -fPIC -o libhosts.o libhosts.c
-[maycon@darkside libhosts]$ echo "a.b.c.d 8.8.8.8" >> ~/.libhosts/hosts
+[maycon@darkside libhosts]$ echo "8.8.8.8 a.b.c.d" >> ~/.libhosts/hosts
 [maycon@darkside libhosts]$
 </pre>
 
