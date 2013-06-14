@@ -10,7 +10,7 @@ gcc -Wall -Wl,-soname,libhosts -shared -ldl -fPIC -o libhosts.o libhosts.c
 
 <pre>
 [maycon@darkside libhosts]$ echo "a.b.c.d 8.8.8.8" >> ~/.libhosts/hosts
-<pre>
+</pre>
 
 [maycon@darkside libhosts]$ LD\_PRELOAD=./libhosts.o ./resolveip a.b.c.d
 IP address of a.b.c.d is 8.8.8.8
@@ -30,4 +30,4 @@ IP address of a.b.c.d is 8.8.8.8
 [+] libhosts: libhosts.c:65 gethostbyname(): Not found in local hosts file
 ./resolveip: Unable to find hostid for 'a.b.c.d.e': host not found
 [maycon@darkside libhosts]$
-<pre>
+</pre>
