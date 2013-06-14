@@ -13,7 +13,7 @@
                 __FILE__, __LINE__, __PRETTY_FUNCTION__, ##__VA_ARGS__); \
     }
 
-#define LOCAL_HOSTS "/home/maycon/.libhosts/hosts"
+#define LOCAL_HOSTS "~/.libhosts/hosts"
 
 typedef struct hostent*(gethostbyname_t)(const char *name);
 
@@ -33,7 +33,7 @@ struct hostent *gethostbyname(const char *name)
 
     DEBUG("looking for %s", name);
 
-    fd = fopen(LOCAL_HOSTS, "r");
+    fd = fopen(getenv("LIBHOSTS_FILE"), "r");
     if (!fd) {
         perror("fopen");
         exit(-1);
