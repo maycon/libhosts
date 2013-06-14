@@ -41,7 +41,7 @@ struct hostent *gethostbyname(const char *name)
 
     resolved = 0;
     hostname = ip = NULL;
-    while (fscanf(fd, "%as %as\n", &hostname, &ip) != EOF) {
+    while (fscanf(fd, "%as %as\n", &ip, &hostname) != EOF) {
         DEBUG("read from local host %s -> %s", hostname, ip);
 
         if (hostname && ip) {
