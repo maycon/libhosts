@@ -6,6 +6,13 @@
 #include <arpa/inet.h>  // inet_addr
 #include <netdb.h>      // gethostbyaddr
 
+
+#define DEBUG(fmt, ...) \
+    if (getenv("LIBHOSTS_DEBUG")) { \
+        fprintf(stderr, "[+] libhosts: %s:%d %s(): "fmt"\n", \
+                __FILE__, __LINE__, __PRETTY_FUNCTION__, ##__VA_ARGS__); \
+    }
+
 #define LOCAL_HOSTS "/home/maycon/.libhosts/hosts"
 
 typedef struct hostent*(gethostbyname_t)(const char *name);
@@ -19,8 +26,12 @@ struct hostent *gethostbyname(const char *name)
     char *hostname, *ip;
     int resolved;
 
-    if (!sys_gethostbyname)
+    if (!sys_gethostbyname) {
+        DEBUG("First call");
         sys_gethostbyname = (gethostbyname_t *)dlsym(RTLD_NEXT, "gethostbyname");
+    }
+
+    DEBUG("looking for %s", name);
 
     fd = fopen(LOCAL_HOSTS, "r");
     if (!fd) {
@@ -29,13 +40,13 @@ struct hostent *gethostbyname(const char *name)
     }
 
     resolved = 0;
-    while (!feof(fd)) {
-        fscanf(fd, "%as %as", &hostname, &ip);
-        printf ("read [%s][%s]\n", hostname, ip);
+    hostname = ip = NULL;
+    while (fscanf(fd, "%as %as\n", &hostname, &ip) != EOF) {
+        DEBUG("read from local host %s -> %s", hostname, ip);
 
         if (hostname && ip) {
             if (!strcmp(hostname, name)) {
-                printf ("Match host %s with IP address %s.\n", hostname, ip);
+                DEBUG ("matched");
                 addr = inet_addr(ip);
                 resolved = 1;
             }
@@ -43,6 +54,7 @@ struct hostent *gethostbyname(const char *name)
 
         if (hostname) free(hostname);
         if (ip) free(ip);
+        hostname = ip = NULL;
 
         if (resolved) {
             fclose(fd);
@@ -50,6 +62,7 @@ struct hostent *gethostbyname(const char *name)
         }
     }
 
+    DEBUG("Not found in local hosts file");
     fclose(fd);
 
     return sys_gethostbyname(name);
