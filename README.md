@@ -1,2 +1,2 @@
-libhosts - A simple library to use with LD\_PRELOAD
+libhosts - A simple LD_PRELOAD library
 ===============================
