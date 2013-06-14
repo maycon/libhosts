@@ -27,6 +27,10 @@ $ LIBHOSTS_DEBUG=1 LIBHOSTS_FILE=~/.libhosts/hosts LD_PRELOAD=./libhosts.o ./res
 [+] libhosts: libhosts.c:45 gethostbyname(): read from local host a.b.c.d -> 8.8.8.8
 [+] libhosts: libhosts.c:49 gethostbyname(): matched
 IP address of a.b.c.d is 8.8.8.8
+$
+</pre>
+
+<pre>
 $ LIBHOSTS_DEBUG=1 LIBHOSTS_FILE=~/.libhosts/hosts LD_PRELOAD=./libhosts.o ./resolveip a.b.c.d.e
 [+] libhosts: libhosts.c:30 gethostbyname(): First call
 [+] libhosts: libhosts.c:34 gethostbyname(): looking for a.b.c.d.e
