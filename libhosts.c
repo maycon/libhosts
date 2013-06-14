@@ -33,8 +33,6 @@
                 __FILE__, __LINE__, __PRETTY_FUNCTION__, ##__VA_ARGS__); \
     }
 
-#define LOCAL_HOSTS "~/.libhosts/hosts"
-
 typedef struct hostent*(gethostbyname_t)(const char *name);
 
 static gethostbyname_t *sys_gethostbyname;
