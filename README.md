@@ -12,7 +12,7 @@ gcc -Wall -Wl,-soname,libhosts -shared -ldl -fPIC -o libhosts.o libhosts.c
 [maycon@darkside libhosts]$ echo "8.8.8.8 a.b.c.d" >> ~/.libhosts/hosts
 </pre>
 
-</pre>
+<pre>
 [maycon@darkside libhosts]$ LIBHOSTS_FILE=~/.libhosts/hosts LD_PRELOAD=./libhosts.o ./resolveip a.b.c.d
 IP address of a.b.c.d is 8.8.8.8
 </pre>
